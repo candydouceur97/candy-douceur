@@ -442,9 +442,9 @@
         // 3. Déployer → Nouveau déploiement → Application Web
         // 4. Copiez l'URL Web qui commence par https://script.google.com/macros/s/...
         // 5. Collez-la ci-dessous entre les guillemets
-       
-        const SCRIPT_URL = "VOTRE_URL_APPS_SCRIPT_ICI";
-       
+        
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyIfiU52iseJLip_S7RFv0xPEarY38F4PHFFtDUT7F_08W6-KMISFiV3SbWioDzbAS4Ig/exec";
+        
         // ========================================
 
         function selectFormule(id) {
@@ -457,19 +457,19 @@
 
         document.getElementById('candyForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-           
+            
             const btn = document.getElementById('btn');
             const success = document.getElementById('success');
             const error = document.getElementById('error');
-           
+            
             btn.disabled = true;
             btn.textContent = '⏳ Envoi en cours...';
             success.style.display = 'none';
             error.style.display = 'none';
-           
+            
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
-           
+            
             try {
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
@@ -477,12 +477,12 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
-               
+                
                 success.style.display = 'block';
                 this.reset();
                 document.querySelectorAll('.formule').forEach(f => f.classList.remove('selected'));
                 success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-               
+                
             } catch (err) {
                 console.error('Erreur:', err);
                 error.style.display = 'block';
